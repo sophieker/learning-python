@@ -2,11 +2,11 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-x = np.arange(0,4*np.pi,0.1)   # start,stop,step
+x = np.arange(-(2*np.pi),2*np.pi,0.1)   # start,stop,step
 y = np.sin(x)
-z = np.cos(x)
+z = np.cos(x - np.pi/2)
 
-plt.plot(x,y)
+# plt.plot(x,y)
 plt.plot(x,z)
 
 plt.xlabel('numbers')
