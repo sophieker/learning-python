@@ -1,5 +1,5 @@
 import random
-
+#code to play rock paper scissors with computer
 usage = ('Usage Instructions\n  Enter: \n  0 for Rock\n ' \
                    ' 1 for Paper \n  2 for Scissors')
 print(usage)
@@ -24,5 +24,4 @@ while True:
 
     else:
         print ('user wins!')
-
 
