@@ -117,6 +117,7 @@ def main():
 
     for b in range (0, 50):
         print("loop iteration: ", b)
+
         decide_state(arr)
         plt.matshow(arr, fignum=False);
     
