@@ -30,7 +30,7 @@ def draw_disk(centerx, centery, length, height, disk_num):
     draw_line(x1 + length, y1, 270, height, 2, "black", t)
     draw_line(x1 + length, y1 - height, 180, length, 2, "black", t)
     draw_line(x1, y1 - height, 90, height, 2, "black", t)
-    draw_line(x1 + length/2, y1 - 1, 270, height - 4, 5, "light gray", t)
+    draw_line(x1 + length/2, y1 - 3, 270, height - 7, 5, "light gray", t)
     turtle.update()
 
 
