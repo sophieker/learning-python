@@ -30,6 +30,7 @@ def draw_disk(centerx, centery, length, height, disk_num):
     draw_line(x1 + length, y1, 270, height, 2, "black", t)
     draw_line(x1 + length, y1 - height, 180, length, 2, "black", t)
     draw_line(x1, y1 - height, 90, height, 2, "black", t)
+    draw_line(x1 + length/2, y1 - 1, 270, height - 4, 5, "light gray", t)
     turtle.update()
 
 
@@ -127,7 +128,7 @@ turtle.title("Tower of HanUi")
 turtle.speed(0)
 turtle.tracer(0,0)
 
-n = 6
+n = 4
 for i in reversed(range(n)):
     # reliance: A is start
     A.append(i + 1)
