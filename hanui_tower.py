@@ -128,7 +128,7 @@ turtle.title("Tower of HanUi")
 turtle.speed(0)
 turtle.tracer(0,0)
 
-n = 4
+n = 10
 for i in reversed(range(n)):
     # reliance: A is start
     A.append(i + 1)
