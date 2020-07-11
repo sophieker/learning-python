@@ -4,12 +4,15 @@ from tkinter import *
 from turtle import *
 import tkinter.font as tkFont
 import math
-import sys
+import random
 
 # initializing window
 root = tk.Tk()
 root.title("ohm's law simulation")
 root.geometry("800x700")
+
+# font preset
+bold_font = tkFont.Font(family="Helvetica", size=30, weight="bold")
 
 c = tk.Canvas(root, width = 800, height = 700)
 
@@ -19,12 +22,24 @@ resistance_ = 0.1
 # update displays
 def update_battery(voltage):
     print("Number of batteries: ", math.floor(voltage/1.5))
+    battery_num = math.floor(voltage/1.5)
     
 def update_resistor(resistance):
-    print("Number of dots: ", math.floor(resistance/10))
+    num_dots = math.floor(resistance/5)
+    for i in dots:
+        c.delete(i)
+    for i in range (num_dots):
+        startx = random.randrange(205, 595)
+        starty = random.randrange(475, 525)
+        oval = c.create_oval(startx, starty, startx + 3, starty + 3, fill="red", outline = "red")
+        dots.append(oval)
+
+
 
 def update_wire(current):
     print("current: ", current)
+    # current_display = c.create_text(370, 300, font=bold_font, text=str(current))
+    # c.pack()
 
 # update circuit 
 def update_voltage(volt_num):
@@ -58,6 +73,10 @@ resistance_slider = tk.Scale(root, from_=10, to=1000, resolution=0.1, orient=HOR
 resistance_slider.place(x = 450, y = 600, height = 200, width = 200)
 
 battery = []
+dots = []
+# current_display = c.create_text(370, 300, font=bold_font, text="0")
+# c.pack()
+
 
 # labels for sliders
 volt_label = tk.Label(root, text = "voltage (V)")
@@ -66,7 +85,7 @@ resistance_label = tk.Label(root, text = "resistance (Ω)")
 resistance_label.place(x = 440, y = 650)
 
 # draw shapes
-circuit = c.create_rectangle(150, 150, 650, 500, width = 7)
+circuit = c.create_rectangle(150, 150, 650, 500, width = 10)
 c.pack()
 
 resistance_rect = c.create_rectangle(200, 470, 600, 530, fill= 'white', width=2)
@@ -82,8 +101,8 @@ update_current()
 root.mainloop()
 
 """
-- draw rectangles (batteries that increase with voltage, box with increasing particles as resistance increases
-- display the current, voltage, and resistance
-- figure out how to get value of scale
+- draw rectangles (batteries that increase with voltage)
+- display the current
 - toggle show equation
+- white particles to show current
 """
