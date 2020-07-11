@@ -13,38 +13,53 @@ root.geometry("800x700")
 
 c = tk.Canvas(root, width = 800, height = 700)
 
+voltage = 0
+resistance = 1
+current = 0
+
+# update displays
+def update_battery():
+    print("Number of batteries: ", math.floor(voltage/1.5))
+    
+def update_resistor():
+    print("Number of dots: ", math.floor(resistance/10))
+
+def update_wire():
+    print("current: ", current)
+
+# update circuit 
+def update_voltage(volt_num):
+    print("volt_num: >", volt_num, "<")
+    voltage = float(volt_num)
+    update_battery()
+    update_current()
+
+def update_resistance(resistance_num):
+    resistance = float(resistance_num.get())
+    update_resistor()
+    update_current()
+
+def update_current():
+    current = (voltage * 1000)/resistance
+    update_wire()
+    
+
 # creating sliders
-volt_slider = tk.Scale(root, from_= 0.1, to= 9, resolution=0.1, orient=HORIZONTAL)
+volt_num = DoubleVar()
+volt_slider = tk.Scale(root, from_= 0.1, to= 9, resolution=0.1, orient=HORIZONTAL, variable = volt_num, command = update_voltage)
 volt_slider.place(x = 150, y = 600, height = 200, width = 200)
-resistance_slider = tk.Scale(root, from_=10, to=1000, resolution=0.1, orient=HORIZONTAL)
+
+resistance_num = DoubleVar()
+resistance_slider = tk.Scale(root, from_=10, to=1000, resolution=0.1, orient=HORIZONTAL, variable = resistance_num, command = update_resistance)
 resistance_slider.place(x = 450, y = 600, height = 200, width = 200)
 
+battery = []
+
 # labels for sliders
-volt_label = tk.Label(root, text = "voltage")
+volt_label = tk.Label(root, text = "voltage (V)")
 volt_label.place(x = 140, y = 650)
-resistance_label = tk.Label(root, text = "resistance")
+resistance_label = tk.Label(root, text = "resistance (Ω)")
 resistance_label.place(x = 440, y = 650)
-
-# toggle equation
-"""
-def toggle():
-    if mylabel.visible:
-        btnToggle["text"] = "Show equation"
-        mylabel.place_forget()
-    else:
-        mylabel.place(mylabel.pi)
-        btnToggle["text"] = "Hide equation"
-    mylabel.visible = not mylabel.visible
-
-mylabel_font = tkFont.Font(family = "Lucida Grande", size=30)
-mylabel = tk.Label(root, text="V = IR", font=mylabel_font)
-mylabel.visible = True
-mylabel.place(x=400, y=50)
-mylabel.pi = mylabel.place_info()
-
-btnToggle = tk.Button(root, text="Hide equation", command=toggle)
-btnToggle.place(x=600, y=50)
-"""
 
 # draw shapes
 circuit = c.create_rectangle(150, 150, 650, 500, width = 7)
@@ -52,14 +67,15 @@ c.pack()
 
 resistance_rect = c.create_rectangle(200, 470, 600, 530, fill= 'white', width=2)
 c.pack()
-
-root.mainloop()
-
+    
 
 # calculating current
-v = int(input("voltage: "))
-r = int(input("Enter resistance: "))
-i = (v*1000)/r
+"""
+update_voltage(volt_num)
+update_resistance(resistance_num)
+update_current()
+"""
+root.mainloop()
 
 """
 - draw rectangles (batteries that increase with voltage, box with increasing particles as resistance increases
