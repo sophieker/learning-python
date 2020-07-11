@@ -2,7 +2,9 @@ import turtle as t
 import tkinter as tk
 from tkinter import *
 from turtle import *
+import tkinter.font as tkFont
 import math
+import sys
 
 # initializing window
 root = tk.Tk()
@@ -25,15 +27,31 @@ resistance_label.place(x = 440, y = 650)
 
 # toggle equation
 """
-equation_check_var = IntVar()
-equation_check = tk.Checkbutton(root, text = "display equation", variable = equation_check_var, onvalue = 1, offvalue = 0)
-equation_check.place(x = 600, y = 50)
+def toggle():
+    if mylabel.visible:
+        btnToggle["text"] = "Show equation"
+        mylabel.place_forget()
+    else:
+        mylabel.place(mylabel.pi)
+        btnToggle["text"] = "Hide equation"
+    mylabel.visible = not mylabel.visible
 
-if equation_check_var == 1:
-    equation = tk.Label(root, text = "V = IR", family = "Lucida Grande", size=20)
-    equation.place(x = 400, y = 50)
+mylabel_font = tkFont.Font(family = "Lucida Grande", size=30)
+mylabel = tk.Label(root, text="V = IR", font=mylabel_font)
+mylabel.visible = True
+mylabel.place(x=400, y=50)
+mylabel.pi = mylabel.place_info()
 
+btnToggle = tk.Button(root, text="Hide equation", command=toggle)
+btnToggle.place(x=600, y=50)
 """
+
+# draw shapes
+circuit = c.create_rectangle(150, 150, 650, 500, width = 7)
+c.pack()
+
+resistance_rect = c.create_rectangle(200, 470, 600, 530, fill= 'white', width=2)
+c.pack()
 
 root.mainloop()
 
@@ -41,13 +59,11 @@ root.mainloop()
 # calculating current
 v = int(input("voltage: "))
 r = int(input("Enter resistance: "))
-i = v/r
+i = (v*1000)/r
 
 """
-- create window
-- draw rectangles (wire, batteries that increase with voltage,
-box with increasing particles as resistance increases
+- draw rectangles (batteries that increase with voltage, box with increasing particles as resistance increases
 - display the current, voltage, and resistance
 - figure out how to get value of scale
-- button to calculate current
+- toggle show equation
 """
