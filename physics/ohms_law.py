@@ -13,37 +13,41 @@ root.geometry("800x700")
 
 c = tk.Canvas(root, width = 800, height = 700)
 
-voltage = 0
-resistance = 1
-current = 0
+voltage_ = 0
+resistance_ = 0.1
 
 # update displays
-def update_battery():
+def update_battery(voltage):
     print("Number of batteries: ", math.floor(voltage/1.5))
     
-def update_resistor():
+def update_resistor(resistance):
     print("Number of dots: ", math.floor(resistance/10))
 
-def update_wire():
+def update_wire(current):
     print("current: ", current)
 
 # update circuit 
 def update_voltage(volt_num):
+    global voltage_
     print("volt_num: >", volt_num, "<")
     voltage = float(volt_num)
-    update_battery()
+    voltage_ = voltage
+    update_battery(voltage)
     update_current()
 
 def update_resistance(resistance_num):
-    resistance = float(resistance_num.get())
-    update_resistor()
+    global resistance_
+    print("resistance_num: >", resistance_num, "<")
+    resistance = float(resistance_num)
+    resistance_ = resistance
+    update_resistor(resistance)
     update_current()
 
 def update_current():
-    current = (voltage * 1000)/resistance
-    update_wire()
+    print("update current: ", voltage_, resistance_)
+    current = (voltage_ * 1000)/resistance_
+    update_wire(current)
     
-
 # creating sliders
 volt_num = DoubleVar()
 volt_slider = tk.Scale(root, from_= 0.1, to= 9, resolution=0.1, orient=HORIZONTAL, variable = volt_num, command = update_voltage)
