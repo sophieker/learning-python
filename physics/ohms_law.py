@@ -73,9 +73,9 @@ def update_wire(current):
         # 1
         draw_oval(3, random.randrange(148, 152), random.randrange(148, 502), current_dots, "white", "white")
 
-    for i in range(math.ceil(num_current / 4)):
+    for i in range(math.ceil(num_current / 12)):
         # 2
-        draw_oval(3, random.randrange(148, 652), random.randrange(148, 152), current_dots, "white", "white")
+        draw_oval(3, random.randrange(148, 177), random.randrange(148, 152), current_dots, "white", "white")
 
     for i in range(math.ceil(num_current / 4)):
         # 3
@@ -83,11 +83,15 @@ def update_wire(current):
 
     for i in range(math.ceil(num_current / 8)):
         # 4
-        draw_oval(3, random.randrange(148, 197), random.randrange(148, 502), current_dots, "white", "white")
+        draw_oval(3, random.randrange(148, 197), random.randrange(498, 502), current_dots, "white", "white")
 
     for i in range(math.ceil(num_current / 8)):
         # 5
-        draw_oval(3, random.randrange(603, 647), random.randrange(148, 502), current_dots, "white", "white")
+        draw_oval(3, random.randrange(603, 647), random.randrange(498, 502), current_dots, "white", "white")
+
+    for i in range(math.ceil(num_current / 6)):
+        # 6
+        draw_oval(3, random.randrange(488, 648), random.randrange(148, 152), current_dots, "white", "white")
 
 
     """
@@ -102,7 +106,7 @@ def update_wire(current):
 # ---update circuit
 def update_voltage(volt_num):
     global voltage_
-    print("volt_num: >", volt_num, "<")
+    # print("volt_num: >", volt_num, "<")
     voltage = float(volt_num)
     voltage_ = voltage
     update_battery(voltage)
@@ -110,14 +114,14 @@ def update_voltage(volt_num):
 
 def update_resistance(resistance_num):
     global resistance_
-    print("resistance_num: >", resistance_num, "<")
+    # print("resistance_num: >", resistance_num, "<")
     resistance = float(resistance_num)
     resistance_ = resistance
     update_resistor(resistance)
     update_current()
 
 def update_current():
-    print("update current: ", voltage_, resistance_)
+    # print("update current: ", voltage_, resistance_)
     current = (voltage_ * 1000)/resistance_
     update_wire(current)
 
@@ -156,6 +160,9 @@ c.pack()
 
 circuit_units = tk.Label(root, text = "mA", font = ("Helvetica", 16))
 circuit_units.place(x = 385, y = 340)
+
+battery_rect = c.create_rectangle(180, 135, 485, 165, fill='white', width=2)
+c.pack()
 
 # ---equation
 equation = tk.Label(root, text = "V = IR", font = ("Times", 30))
