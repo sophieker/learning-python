@@ -17,6 +17,10 @@ c = tk.Canvas(root, width = 800, height = 700)
 voltage_ = 0.0
 resistance_ = 10.0
 
+#---draw shapes
+def draw_oval(size, x_start, y_start, arr, fill_color, outline_color):
+    temp_var = c.create_oval(x_start, y_start, x_start + size, y_start + size, fill=fill_color, outline=outline_color)
+    arr.append(temp_var)
 
 # ---update displays
 def update_battery(voltage):
@@ -36,11 +40,13 @@ def update_battery(voltage):
     #        batt_remainder = c.create_text(245 + i * 51, 130, text=round(voltage%1.5, 2))
     #        battery_remainder.append(batt_remainder)
         batt = c.create_rectangle(180 + i * 51, 135, (180 + i * 51) + 50, 165, fill = "white", width=2)
+        c.tag_raise(batt)
         battery.append(batt)
         batt_label = c.create_text(205 + i * 51, 150, text="1.5 V")
+        c.tag_raise(batt_label)
         battery_labels.append(batt_label)
 
-    
+
 def update_resistor(resistance):
     num_dots = math.floor(resistance/5)
     random.seed(10)
@@ -55,7 +61,7 @@ def update_resistor(resistance):
 
 
 def update_wire(current):
-    num_current = current * 10
+    num_current = math.ceil(current)
     print("current: ", current)
     for i in current_display:
         c.delete(i)
@@ -63,12 +69,35 @@ def update_wire(current):
         c.delete(i)
     current_display_temp = c.create_text(400, 320, font=bold_font, text=str(round(current, 2)))
     current_display.append(current_display_temp)
-    for i in range(current_dots):
-        startx_left = 
-        startx_right =
-        starty_left =
-        starty_right =
+    for i in range(math.ceil(num_current/4)):
+        # 1
+        draw_oval(3, random.randrange(148, 152), random.randrange(148, 502), current_dots, "white", "white")
 
+    for i in range(math.ceil(num_current / 4)):
+        # 2
+        draw_oval(3, random.randrange(148, 652), random.randrange(148, 152), current_dots, "white", "white")
+
+    for i in range(math.ceil(num_current / 4)):
+        # 3
+        draw_oval(3, random.randrange(648, 652), random.randrange(148, 502), current_dots, "white", "white")
+
+    for i in range(math.ceil(num_current / 8)):
+        # 4
+        draw_oval(3, random.randrange(148, 197), random.randrange(148, 502), current_dots, "white", "white")
+
+    for i in range(math.ceil(num_current / 8)):
+        # 5
+        draw_oval(3, random.randrange(603, 647), random.randrange(148, 502), current_dots, "white", "white")
+
+
+    """
+    for i in range(current_dots):
+        startx_left = random.randrange(145, 155)
+        startx_right = random.randrange(645, 655)
+        starty_left = random.randrange(145, 155)
+        starty_right = random.randrange(495, 505)
+        current_oval = c.create_oval(startx_left or startx_right, starty_left or starty_right, )
+"""
 
 # ---update circuit
 def update_voltage(volt_num):
@@ -128,7 +157,7 @@ c.pack()
 circuit_units = tk.Label(root, text = "mA", font = ("Helvetica", 16))
 circuit_units.place(x = 385, y = 340)
 
-#---equation
+# ---equation
 equation = tk.Label(root, text = "V = IR", font = ("Times", 30))
 equation.place(x=355, y=70)
     
@@ -142,7 +171,6 @@ update_current()
 root.mainloop()
 
 """
-- toggle show equation
 - white particles to show current
 - increasing size of batteries or some display of how much left until new battery
 """
