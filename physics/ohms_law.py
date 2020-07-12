@@ -43,22 +43,31 @@ def update_battery(voltage):
     
 def update_resistor(resistance):
     num_dots = math.floor(resistance/5)
-    for i in dots:
+    random.seed(10)
+    for i in resistance_dots:
         c.delete(i)
     for i in range (num_dots):
         startx = random.randrange(205, 595)
         starty = random.randrange(475, 525)
         oval = c.create_oval(startx, starty, startx + 3, starty + 3, fill="red", outline = "red")
-        dots.append(oval)
+        resistance_dots.append(oval)
 
 
 
 def update_wire(current):
+    num_current = current * 10
     print("current: ", current)
     for i in current_display:
         c.delete(i)
+    for i in current_dots:
+        c.delete(i)
     current_display_temp = c.create_text(400, 320, font=bold_font, text=str(round(current, 2)))
     current_display.append(current_display_temp)
+    for i in range(current_dots):
+        startx_left = 
+        startx_right =
+        starty_left =
+        starty_right =
 
 
 # ---update circuit
@@ -96,8 +105,9 @@ resistance_slider.place(x = 450, y = 600, height = 200, width = 200)
 battery = []
 battery_labels = []
 # battery_remainder = []
-dots = []
+resistance_dots = []
 current_display = []
+current_dots = []
 current_display_init = c.create_text(400, 320, font=bold_font, text="10.0")
 current_display.append(current_display_init)
 
@@ -117,6 +127,10 @@ c.pack()
 
 circuit_units = tk.Label(root, text = "mA", font = ("Helvetica", 16))
 circuit_units.place(x = 385, y = 340)
+
+#---equation
+equation = tk.Label(root, text = "V = IR", font = ("Times", 30))
+equation.place(x=355, y=70)
     
 
 # calculating current
@@ -130,5 +144,5 @@ root.mainloop()
 """
 - toggle show equation
 - white particles to show current
-- increasing size of batteries
+- increasing size of batteries or some display of how much left until new battery
 """
